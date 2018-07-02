@@ -43,7 +43,7 @@ public class CalDay {
 	* Constructs an invalid CalDay object
 	*/
 	public CalDay() {
-		valid = false;
+		valid = false; // change false to true
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class CalDay {
 		int year = cal.get(cal.YEAR);
 	
 		setDay(day);
-		setMonth(month+1);
+		setMonth(month + 1); // remove +1
 		setYear(year);
 	
 		setAppts(new LinkedList<Appt>());

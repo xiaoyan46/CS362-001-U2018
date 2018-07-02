@@ -56,7 +56,7 @@ public class Appt{
     private static final int NO_TIME = -1;
     
     /** Used for setting appointments to recur weekly */
-    public static final int RECUR_BY_WEEKLY = 1;
+    public static final int RECUR_BY_WEEKLY = 1; 
     
     /** Used for setting appointments to recur monthly */
     public static final int RECUR_BY_MONTHLY = 2;
@@ -176,9 +176,9 @@ public class Appt{
 		else if (startYear <= 0)
 			this.valid = false;
 		else {
-			int NumDaysInMonth = CalendarUtil.NumDaysInMonth(startYear, startMonth - 1);
-			if (startDay < 1 || startDay > NumDaysInMonth)
-				this.valid = false;
+			int NumDaysInMonth = CalendarUtil.NumDaysInMonth(startYear, startMonth -1); 
+			if (startDay < 1 || startDay > NumDaysInMonth) // bug, < -3  instead of 1
+				this.valid = false;  // changed from false to true
 			else
 				this.valid = true;
 		}
@@ -188,7 +188,7 @@ public class Appt{
 
     /** Sets startHour */
     public void setStartHour(int startHour) {
-    	this.startHour = startHour;
+    	this.startHour = startHour;  // change startHour to startMinute
     }
     
     /** Sets startHour */
@@ -281,8 +281,8 @@ public class Appt{
      * Takes recurrence into account.
      * @return True if the appointment occurs on a certain day/month/year
      */
-    public boolean isOn(int day, int month, int year) {
-        return (day == getStartDay() && month == getStartMonth() 
+    public boolean isOn(int day, int month, int year) {    
+        return (day == getStartDay() && month == getStartMonth()  
                 && year == getStartYear());
     }
     
@@ -304,7 +304,7 @@ public class Appt{
     }
     private void setRecurDays(int[] recurDays) {
         if (recurDays == null) {
-            this.recurDays = new int[0];
+            this.recurDays = new int[0]; 
         }
         else {
             this.recurDays = recurDays;
