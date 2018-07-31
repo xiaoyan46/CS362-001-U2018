@@ -68,7 +68,7 @@ public class DataHandler {
         String separator = System.getProperty("line.separator");
         
         //The data handler isn't valid unless everything is set up correctly
-        valid = false; 
+        valid = false;
         
         //Record the auto-save setting and file name
         this.autoSave = autoSave;
@@ -149,7 +149,7 @@ public class DataHandler {
             GregorianCalendar nextDay = (GregorianCalendar) firstDay.clone();
             while (nextDay.before(lastDay)) {
                 calDays.add(new CalDay(nextDay));
-                nextDay.add(nextDay.DAY_OF_MONTH, 1); //
+                nextDay.add(nextDay.DAY_OF_MONTH, 1);
             }
             
             if (diagnose) {
@@ -190,9 +190,9 @@ public class DataHandler {
                     }
                     String fieldValue = "";
                     NodeList fieldValueNodes = currentField.getChildNodes();
-                    for (int k = 0; k < fieldValueNodes.getLength(); k++) { 
+                    for (int k = 0; k < fieldValueNodes.getLength(); k++) {
                         Text text = (Text)fieldValueNodes.item(k);
-                        fieldValue += text.getData(); 
+                        fieldValue += text.getData();
                     }
                     if (diagnose) {
                         System.out.println("Reading field's value: " + fieldValue);
@@ -308,7 +308,7 @@ public class DataHandler {
             //Calculate the next recurrence day
             occurrenceDay = getNextApptOccurrence(appt, occurrenceDay);
             if (occurrenceDay == null) {
-                break; 
+                break;
             }
                         
             //Keep cycling while the occurence day is in range
@@ -567,7 +567,7 @@ public class DataHandler {
      * @return True if the dataHandler is initialized correctly
      **/
     private boolean isValid() {
-        return valid; // return false instead of valid
+        return valid;
     }
     
     /** Sets parent **/
