@@ -43,19 +43,15 @@ public class UrlValidatorTest extends TestCase {
       System.out.println("http://web.engr.oregonstate.edu/~singhg/Classes/winter2018/ECE471/");
       System.out.println(urlVal.isValid("http://web.engr.oregonstate.edu/~singhg/Classes/winter2018/ECE471/"));
 
+	  System.out.println("http://@#$@#$.com");
+      System.out.println(urlVal.isValid("http://@#$@#$.com"));
+
       UrlValidator urlVal2 = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 
       System.out.println("using ALLOW_ALL_SCHEMES");        //does not allow anything beside http. works fine
 
       System.out.println("http://www.google.com");
       System.out.println(urlVal2.isValid("http://www.google.com"));
-
-
-      //System.out.println("https://www.google.com");
-      //System.out.println(urlVal2.isValid("https://www.google.com"));
-
-      //System.out.println("ftp://www.google.com");
-      //System.out.println(urlVal2.isValid("ftp://www.google.com"));
 
       System.out.println("http://www.google.com:80");
       System.out.println(urlVal2.isValid("http://www.google.com:80"));
@@ -82,7 +78,7 @@ public class UrlValidatorTest extends TestCase {
       System.out.println("http://https.org/test?action=print");
       System.out.println(urlVal2.isValid("http://https.org/test?action=print"));
 
-      System.out.println("http://");
+      System.out.println("http:");
       System.out.println(urlVal2.isValid("http:"));
 
       System.out.println("null");
@@ -123,75 +119,151 @@ public class UrlValidatorTest extends TestCase {
 
       System.out.println("http://www.google.com/#");
       System.out.println(urlVal.isValid("http://www.google.com/#"));
+
+	  //These causes the program to fail but improve coverage
+	  /**********************************************************************/
+    /*
+	    System.out.println("https://www.google.com");
+      System.out.println(urlVal2.isValid("https://www.google.com"));
+
+      System.out.println("ftp://www.google.com");
+      System.out.println(urlVal2.isValid("ftp://www.google.com"));
+
+	    System.out.println("https://..123..");
+      System.out.println(urlVal2.isValid("https://..123.."));
+      */
+	  /***********************************************************************/
 }
 
-   // changing scheme
    public void testYourFirstPartition(){
-	 //You can use this function to implement your First Partition testing
-       System.out.println("start the first partition test");
+   //You can use this function to implement your First Partition testing
+          System.out.println("start the first partition test");
 
-       UrlValidator urlVal = new UrlValidator(null);
+          UrlValidator urlVal = new UrlValidator(null);
 
-       String url = "http://www.google.com"; // just a normal url
-       System.out.println(url);
-       System.out.println("should be good");      
-       System.out.println(urlVal.isValid(url));
+          String url = "http://www.google.com"; // just a normal url
+          System.out.println(url);
+          System.out.println("should be good");
+          System.out.println(urlVal.isValid(url));
 
-       url = "https:////www.google.com"; // scheme too long, but should  be good !
-       System.out.println(url);
-       System.out.println("should be bad");
-       System.out.println(urlVal.isValid(url));
+          url = "https:////www.google.com"; // scheme too long, but should  be good !
+          System.out.println(url);
+          System.out.println("should be bad");
+          System.out.println(urlVal.isValid(url));
 
-       url = "ftp:////www.google.com"; // scheme too short, but should still be good!
-       System.out.println(url);
-       System.out.println("should be good");
-       System.out.println(urlVal.isValid(url));
+          url = "ftp:////www.google.com"; // scheme too short, but should still be good!
+          System.out.println(url);
+          System.out.println("should be good");
+          System.out.println(urlVal.isValid(url));
 
-       url = "hhttppss:////www.google.com"; // scheme too long, should be bad !
-       System.out.println(url);
-       System.out.println("should be bad");
-       System.out.println(urlVal.isValid(url));
+          url = "hhttppss:////www.google.com"; // scheme too long, should be bad !
+          System.out.println(url);
+          System.out.println("should be bad");
+          System.out.println(urlVal.isValid(url));
 
-       url = "aa:////www.google.com"; // the scheme is too short, should be bad !
-       System.out.println(url);
-       System.out.println("should be bad");
-       System.out.println(urlVal.isValid(url));
+          url = "aa:////www.google.com"; // the scheme is too short, should be bad !
+          System.out.println(url);
+          System.out.println("should be bad");
+          System.out.println(urlVal.isValid(url));
 
-       System.out.println("end the first partition test");
+          /* Added This */
+          System.out.println("Different constructor");
+          UrlValidator urlVal2 = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+
+          url = "http://www.google.com"; // Normal url should be good
+          System.out.println(url);
+          System.out.println("should be good");
+          System.out.println(urlVal2.isValid(url));
+
+          url = "http://www.google.com:80"; // with port
+          System.out.println(url);
+          System.out.println("should be good");
+          System.out.println(urlVal2.isValid(url));
+
+          url = "http://www.google.com:-1"; // with negative port
+          System.out.println(url);
+          System.out.println("should be bad");
+          System.out.println(urlVal2.isValid(url));
+
+          url = "http://www.google.com:70a"; //port with a letter
+          System.out.println(url);
+          System.out.println("should be bad");
+          System.out.println(urlVal2.isValid(url));
+
+          url = "http://www.google.com:6245"; // should be good
+          System.out.println(url);
+          System.out.println("should be good");
+          System.out.println(urlVal2.isValid(url));
+
+          System.out.println("end the first partition test");
    }
 
-   // changing authority
    public void testYourSecondPartition(){
-       System.out.println("start the second partition test");
-	//You can use this function to implement your Second Partition testing
+		 //You can use this function to implement your Second Partition testing
+     System.out.println("start the second partition test");
 
-      UrlValidator urlVal = new UrlValidator(null);
-      String url = "0.0.0.0"; // just a normal url
-       System.out.println(url);
-       System.out.println("should be good");
-       System.out.println(urlVal.isValid(url));
+     UrlValidator urlVal = new UrlValidator(null);
+     String url = "0.0.0.0"; // just a normal url
+      System.out.println(url);
+      System.out.println("should be good");
+      System.out.println(urlVal.isValid(url));
 
-      url = "https://255.255.255.255"; // scheme too long, but should  be good !
-       System.out.println(url);
-       System.out.println("should be good");
-       System.out.println(urlVal.isValid(url));
+     url = "https://255.255.255.255"; // scheme too long, but should  be good !
+      System.out.println(url);
+      System.out.println("should be good");
+      System.out.println(urlVal.isValid(url));
 
-      url = "https://0.0.0.0"; // scheme too short, but should still be good!
-       System.out.println(url);
-       System.out.println("should be good");
-       System.out.println(urlVal.isValid(url));
+     url = "https://0.0.0.0"; // scheme too short, but should still be good!
+      System.out.println(url);
+      System.out.println("should be good");
+      System.out.println(urlVal.isValid(url));
 
-      url = "hhttppss://255.255.255.255.255.255"; // scheme too long, should be bad !
-       System.out.println(url);
-       System.out.println("should be bad");
-       System.out.println(urlVal.isValid(url));
+     url = "hhttppss://255.255.255.255.255.255"; // scheme too long, should be bad !
+      System.out.println(url);
+      System.out.println("should be bad");
+      System.out.println(urlVal.isValid(url));
 
-      url = "https://-1.-1.-1.-1"; // the scheme is too short, should be bad !
-       System.out.println(url);
-       System.out.println("should be bad");
-       System.out.println(urlVal.isValid(url));
+     url = "https://-1.-1.-1.-1"; // the scheme is too short, should be bad !
+      System.out.println(url);
+      System.out.println("should be bad");
+      System.out.println(urlVal.isValid(url));
 
-       System.out.println("end the second partition test");
+      /* Added This */
+      System.out.println("Different constructor");
+      UrlValidator urlVal2 = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+
+      url = "http://www.test.edu"; // Normal url should be good .edu
+      System.out.println(url);
+      System.out.println("should be good");
+      System.out.println(urlVal2.isValid(url));
+
+      url = "http://www.test.org"; // Normal url should be good .org
+      System.out.println(url);
+      System.out.println("should be good");
+      System.out.println(urlVal2.isValid(url));
+
+      url = "http://255.255.255.255"; // Normal url should be good
+      System.out.println(url);
+      System.out.println("should be good");
+      System.out.println(urlVal2.isValid(url));
+
+      url = "http://www.test.au"; // Normal url should be good
+      System.out.println(url);
+      System.out.println("should be good");
+      System.out.println(urlVal2.isValid(url));
+
+      url = "http://www.1.2.3.4.5";
+      System.out.println(url);
+      System.out.println("should be bad");
+      System.out.println(urlVal2.isValid(url));
+
+      url = "http://257.257.257.257"; // Normal url should be bad
+      System.out.println(url);
+      System.out.println("should be bad");
+      System.out.println(urlVal2.isValid(url));
+
+      System.out.println("end the second partition test");
+
    }
    //You need to create more test cases for your Partitions if you need to
 
